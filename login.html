@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+
+
+
+
+
+    <title>welcome</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="styles.css"rel="stylesheet">
+</head>
+<body>
+  <form id="main form" class="w-25 m-4">
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="emailInp" placeholder="name@example.com">
+    <label for="floatingInput">Email address</label>
+  </div>
+  <div class="form-floating mb-3">
+    <input type="password" class="form-control" id="passwordInt" placeholder="Password">
+    <label for="floatingPassword">Password</label>
+  </div>
+  
+  
+  
+  <button type="submit"class="btn-btn-primary"style="float: right;">Login In</button>
+  <a href="register.html"></a><button type="button"class="btn-btn-primary-me-2"style="float: right;">Sign up </button>
+    <!-- Your HTML content goes here -->
+    </form>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    import { getDatabase,set,ref,child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getAuth,singIncreativeUserwithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBDTnpIDKBq64gL3EQJOfWRrnCFd2msrf8",
+      authDomain: "login-1a8c2.firebaseapp.com",
+      projectId: "login-1a8c2",
+      storageBucket: "login-1a8c2.appspot.com",
+      messagingSenderId: "774906499235",
+      appId: "1:774906499235:web:808e2f188714892909af16",
+      measurementId: "G-45G2YPMRSS"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const ab = getDatabase();
+    const auth= getAuth(app);
+    const dbref = ref(db) ;
+    let EmailInp = document.getElementById(' emailInp');
+  let PassInp = document.getElementById( 'passwordInp');
+  
+  let MainForm = document.getElementById( 'MainForm');
+  
+  
+  
+       let SignInUser = evt => {
+      evt. preventDefault();
+      createUserWithEmailAndPassword(auth, EmailInp.value, PassInp. value)
+         .then ((credentials)=>{
+          get (child(dbref, 'UsersAuthList/' + credentials.user.uid)).then((snapshot)=>{
+if(snapshot. exists){
+sessionStorage.setItem("user-info", JSON. stringify({
+firstname:  snapshot.val().firstname, 
+lastname: snapshot.val(). lastname
+}))
+sessionStorage.setItem("user-creds", JSON.stringify(credentials.user));
+window. location. href ='home.html';
+}
+})
+       })
+
+.catch ( (error)=>{
+alert(error.message);
+          })
+       .catch((error) =>{
+           alert(error. message); 
+           console. log(error.code);
+           console. log(error.message);
+       })
+      }
+      MainForm.addEventListener( 'submit', SignInUser);
+         </script>
+        
+  
+  
+      </main>
+      
+        
+        <!-- Remaining content -->
+      
+      
+      <!-- JavaScript -->
+      <script src="script.js"></script>
+  </body>
+  </html>
+  
